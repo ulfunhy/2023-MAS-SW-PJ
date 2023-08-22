@@ -23,7 +23,7 @@ public class Game {
 	int gameCount; // 게임 카운트
 	int comScore = 0;
 	int playerScore = 0;
-	
+
 	JLabel timerLbl = new JLabel(""); // 타이머 라벨
 	JLabel playerScoreLbl = new JLabel("0"); // 플레이어 점수 라벨
 	JLabel comScoreLbl = new JLabel("0"); // 컴퓨터 점수 라벨
@@ -85,44 +85,58 @@ public class Game {
 			SRPbtn[i].addActionListener(btnListener);
 			PlayFrame.add(SRPbtn[i]);
 		}
-		
+
 		playerScoreLbl.setBounds(220, 17, 500, 300);
-		playerScoreLbl.setFont(new Font("고딕",Font.BOLD,35));
+		playerScoreLbl.setFont(new Font("고딕", Font.BOLD, 35));
 		PlayFrame.add(playerScoreLbl);
-		
+
 		comScoreLbl.setBounds(160, 17, 500, 300);
-		comScoreLbl.setFont(new Font("고딕",Font.BOLD,35));
+		comScoreLbl.setFont(new Font("고딕", Font.BOLD, 35));
 		PlayFrame.add(comScoreLbl);
+
+		timerLbl.setBounds(630, 17, 500, 300);
+		timerLbl.setFont(new Font("고딕", Font.BOLD, 35));
+		PlayFrame.add(timerLbl);
 
 		ImagePanel PlayFrameImg = new ImagePanel(new ImageIcon("./image/게임진행화면.jpg").getImage());
 		PlayFrame.add(PlayFrameImg);
-		
-		 
 
 		// 게임이 3초마다 진행되게 하는 타이머
 		Timer timer = new Timer(3000, new ActionListener() {
+			int secondsPassed = 3; // 타이머 시간
+
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				PlayLogic();
-				System.out.println("게임 카운트: " + gameCount);
+				timerLbl.setText(Integer.toString(secondsPassed));
+				secondsPassed--;
 
-				if (gameCount >= 3) {
-					((Timer) evt.getSource()).stop();
-					// 게임 종료 후 승자 결정
-					String winner;
-					if (playerScore > comScore) {
-						winner = "플레이어";
-					} else if (comScore > playerScore) {
-						winner = "컴퓨터";
-					} else {
-						winner = "무승부";
+				if (secondsPassed == 0) {
+					PlayLogic();
+					System.out.println("게임 카운트: " + gameCount);
+
+					if (gameCount >= 3) {
+						((Timer) evt.getSource()).stop();
+						// 게임 종료 후 승자 결정
+						String winner;
+						if (playerScore > comScore) {
+							winner = "플레이어";
+						} else if (comScore > playerScore) {
+							winner = "컴퓨터";
+						} else {
+							winner = "무승부";
+						}
+						System.out.println("게임 종료! " + winner + " 승리!");
+						PlayFrame.setVisible(false);
+						ResultFrame();
 					}
-					System.out.println("게임 종료! " + winner + " 승리!");
+					
+					secondsPassed = 3;
 				}
 			}
 		});
 		timer.start();
 
+		PlayFrame.setLayout(null);
 		PlayFrame.setVisible(true);
 		PlayFrame.setResizable(false);
 		PlayFrame.setSize(840, 720);
@@ -170,9 +184,18 @@ public class Game {
 		playerChoose = -1;
 		gameCount++;
 	}
-	
+
 	public void ResultFrame() {
-		
+		JFrame ResultFrame = new JFrame("결과 화면");
+
+		ImagePanel ResultFrameImg = new ImagePanel(new ImageIcon("./image/게임결과화면.jpg").getImage());
+		ResultFrame.add(ResultFrameImg);
+
+		ResultFrame.setVisible(true);
+		ResultFrame.setResizable(false);
+		ResultFrame.setSize(840, 720);
+		ResultFrame.setLocationRelativeTo(null);
+		ResultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창을 닫았을 때 해당 창만 종료
 	}
 
 	public void ExplainFrame() { // 게임설명 화면
