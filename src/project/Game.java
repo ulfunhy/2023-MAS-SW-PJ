@@ -97,7 +97,7 @@ public class Game {
 		ImagePanel PlayFrameImg = new ImagePanel(new ImageIcon("./image/게임진행화면.jpg").getImage());
 		PlayFrame.add(PlayFrameImg);
 		
-		
+		 
 
 		// 게임이 3초마다 진행되게 하는 타이머
 		Timer timer = new Timer(3000, new ActionListener() {
