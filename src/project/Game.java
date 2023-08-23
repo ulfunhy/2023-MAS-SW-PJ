@@ -195,7 +195,7 @@ public class Game {
 		ResultFrame.setResizable(false);
 		ResultFrame.setSize(840, 720);
 		ResultFrame.setLocationRelativeTo(null);
-		ResultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창을 닫았을 때 해당 창만 종료
+		ResultFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void ExplainFrame() { // 게임설명 화면
