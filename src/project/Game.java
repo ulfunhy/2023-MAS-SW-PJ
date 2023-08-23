@@ -27,6 +27,8 @@ public class Game {
 	JLabel timerLbl = new JLabel(""); // 타이머 라벨
 	JLabel playerScoreLbl = new JLabel("0"); // 플레이어 점수 라벨
 	JLabel comScoreLbl = new JLabel("0"); // 컴퓨터 점수 라벨
+	
+	JFrame PlayFrame = new JFrame("게임 화면");
 
 	public Game() {
 		StartFrame(); // 시작화면 불러오기 (프로그램이 시작화면부터 이어짐)
@@ -37,9 +39,9 @@ public class Game {
 		JButton StartBtn = new JButton(); // 게임시작 버튼
 		JButton ExplainBtn = new JButton("게임 설명"); // 게임설명 버튼
 
-		StartBtn.setBounds(80, 560, 250, 80);
+		StartBtn.setBounds(80, 560, 217, 70);
 		StartFrame.add(StartBtn);
-		ExplainBtn.setBounds(80, 470, 250, 80);
+		ExplainBtn.setBounds(80, 470, 217, 70);
 		StartFrame.add(ExplainBtn);
 
 		StartFrame.setLayout(null); // 시작 화면의 배치 방법을 null로 지정
@@ -73,7 +75,6 @@ public class Game {
 	}
 
 	public void PlayFrame() { // 게임진행 화면
-		JFrame PlayFrame = new JFrame("게임 화면");
 
 		for (int i = 0; i < SRPbtn.length; i++) {
 			SRPbtn[i] = new JButton();
@@ -186,17 +187,47 @@ public class Game {
 	}
 
 	public void ResultFrame() {
-		JFrame ResultFrame = new JFrame("결과 화면");
+		   JFrame ResultFrame = new JFrame("결과 화면");
 
-		ImagePanel ResultFrameImg = new ImagePanel(new ImageIcon("./image/게임결과화면.jpg").getImage());
-		ResultFrame.add(ResultFrameImg);
+		   ImagePanel ResultFrameImg = new ImagePanel(new ImageIcon("./image/게임결과화면.jpg").getImage());
+		   ResultFrame.add(ResultFrameImg);
 
-		ResultFrame.setVisible(true);
-		ResultFrame.setResizable(false);
-		ResultFrame.setSize(840, 720);
-		ResultFrame.setLocationRelativeTo(null);
-		ResultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창을 닫았을 때 해당 창만 종료
-	}
+		   JButton AgainBtn = new JButton("게임다시시작"); // 게임설명 버튼
+		   JButton EndBtn = new JButton("게임종료"); // 게임시작 버튼
+
+		   AgainBtn.setBounds(158, 522, 217, 70);
+		   ResultFrame.add(AgainBtn);
+
+		   EndBtn.setBounds(465, 522, 217, 70);
+		   ResultFrame.add(EndBtn);
+
+		   // 버튼 배경 이미지 설정
+		   AgainBtn.setIcon(new ImageIcon("./image/게임다시버튼.png"));
+		   EndBtn.setIcon(new ImageIcon("./image/게임종료버튼.png"));
+
+		   AgainBtn.addActionListener(new ActionListener() { // 게임다시버튼을 눌렀을 때
+		      @Override
+		      public void actionPerformed(ActionEvent e) {
+		         ResultFrame.dispose(); // 현재 창을 닫음
+		         PlayFrame.dispose();
+		         new Game(); // 게임진행화면 불러오기
+		      }
+		   });
+
+		   EndBtn.addActionListener(new ActionListener() { // 게임종료버튼을 눌렀을 때
+		      @Override
+		      public void actionPerformed(ActionEvent e) {
+		         System.exit(0); // 프로그램 전체 종료
+		      }
+		   });
+
+		   ResultFrame.setLayout(null);
+		   ResultFrame.setVisible(true);
+		   ResultFrame.setResizable(false);
+		   ResultFrame.setSize(840, 720);
+		   ResultFrame.setLocationRelativeTo(null);
+		   ResultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창을 닫았을 때 해당 창만 종료
+		}
 
 	public void ExplainFrame() { // 게임설명 화면
 		JFrame ExplainFrame = new JFrame("게임 설명");
