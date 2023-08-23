@@ -27,7 +27,7 @@ public class Game {
 
 	JLabel timerLbl = new JLabel(""); // 타이머 라벨
 	JLabel playerScoreLbl = new JLabel("0"); // 플레이어 점수 라벨
-	JLabel comScoreLbl = new JLabel("0"); // 컴퓨터 점수 라벨
+	JLabel comScoreLbl = new JLabel("0"); // 컴퓨터 점수 라벨 
 
 	JFrame PlayFrame = new JFrame("게임 화면");
 	JLabel playerChooseLbl = new JLabel(""); // 플레이어가 무엇을 선택했는지
